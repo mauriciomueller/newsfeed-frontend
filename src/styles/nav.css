@@ -1,0 +1,68 @@
+header nav .dropdown-menu a svg {
+    margin-bottom: 3px;
+}
+
+header .search {
+    position: relative;
+}
+
+header .search .container {
+    position: relative;
+    padding: 0;
+    color: #80868b;
+}
+
+header .search .container .submit {
+    position: absolute;
+    right: 38px;
+    top: 4px;
+}
+
+header .search .container .magnifying-glass {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    width: 22px;
+    height: 22px;
+}
+
+header .search .container .filters-button {
+    position: absolute;
+    right: 0px;
+    width: 40px;
+    height: 100%;
+    line-height: 0;
+    background: none;
+    border: none;
+}
+
+header .search .filters-button .icon {
+    width: 20px;
+    height: 20px;
+    color: #80868b;
+    margin-top: -2px;
+}
+
+header .search .search-input {
+    padding: 10px 38px;
+}
+
+header .search .filters {
+    z-index: 10;
+    position: absolute;
+    margin-top: 5px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+}
+
+header .search .filters .extra-filter {
+    border: 1px solid #e4e4e4;
+    padding: 15px
+}
+
+header .search .filters .sources .options {
+    height: 200px;
+    overflow: auto;
+}
+

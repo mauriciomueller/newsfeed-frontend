@@ -1,0 +1,87 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import AlertMessageComponent from '../components/AlertMessage'
+import { useAuthContext } from '../context/AuthContext'
+
+import '../styles/form.css'
+
+const Login = () => {
+	const [email, setEmail] = useState<string>('')
+	const [password, setPassword] = useState<string>('')
+
+	const { login, errors } = useAuthContext()
+
+	const handleLogin = async (event: React.SyntheticEvent) => {
+		event.preventDefault()
+
+		login({ email, password })
+	}
+
+	return (
+		<section className="mt-5 form-signin form-guest w-100 m-auto">
+			<form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
+				<h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
+
+				<AlertMessageComponent alertMessage={errors?.alert} />
+
+				<div className="form-floating has-validation mb-2">
+					<input
+						required
+						type='email'
+						autoComplete="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						placeholder='Email'
+						className={`form-control ${errors?.email ? "is-invalid" : ""}`}
+					/>
+					{errors?.email && (
+						<div className="invalid-feedback mb-3">
+							{errors?.email[0]}
+						</div>
+					)}
+					<label>Email</label>
+				</div>
+
+				<div className="form-floating mb-2">
+					<input
+						required
+						type='password'
+						autoComplete="current-password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder='Password'
+						className={`form-control ${errors.password ? "is-invalid" : ""}`}
+					/>
+					{errors.password && (
+						<div className="invalid-feedback mb-3">
+							{errors.password[0]}
+						</div>
+					)}
+					<label>Password</label>
+				</div>
+
+				<button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+			</form>
+			<div className="text-center">
+				<p>
+					<Link
+						to='/forgot-password'
+						className='mb-2 inline-block text-base text-[#adadad] hover:text-primary hover:underline'
+					>
+						Forgot your password?
+					</Link>
+				</p>
+
+				<p>
+					<Link to='/register' className='text-primary hover:underline'>
+						Create an account
+					</Link>
+				</p>
+			</div>
+
+		</section>
+	)
+}
+
+export default Login

@@ -1,0 +1,46 @@
+.news {
+    margin-bottom: 40px;
+}
+
+.news article {
+    height: 100%;
+    position: relative;
+}
+
+.news article a {
+    text-decoration: none;
+}
+
+.news article a:hover {
+    text-decoration: underline;
+}
+
+.news article p a {
+    color: #666;
+}
+
+.news article h2 {
+    font-size: 1.2em;
+}
+
+.news article .media {
+    display: block;
+    height: 210px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgb(235, 235, 235);
+}
+
+
+.news article .media:hover .published-at {
+    opacity: 100!important;
+}
+
+.news article footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

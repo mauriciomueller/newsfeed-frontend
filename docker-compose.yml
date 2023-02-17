@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  react:
+    driver: bridge
+
+services:  
+  frontend_react:
+    build: 
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - '5180:5180'
+    volumes:
+      - ./:/app
+    networks:
+      - react
+    command: ['npm', 'run', 'dev']
+
+  frontend_tests:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    volumes:
+      - ./:/app
+    networks:
+        - react
+    command: ['npm', 'run', 'test']
