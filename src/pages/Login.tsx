@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AlertMessageComponent from '../components/AlertMessage'
 import { useAuthContext } from '../context/AuthContext'
@@ -6,13 +6,14 @@ import { useAuthContext } from '../context/AuthContext'
 import '../styles/form.css'
 
 const Login = () => {
-	const [email, setEmail] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
 	const { login, errors } = useAuthContext()
 
-	const handleLogin = async (event: React.SyntheticEvent) => {
+	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+		const email = emailRef.current?.value;
+		const password = passwordRef.current?.value;
 
 		login({ email, password })
 	}
@@ -29,8 +30,7 @@ const Login = () => {
 						required
 						type='email'
 						autoComplete="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						ref={emailRef}
 						placeholder='Email'
 						className={`form-control ${errors?.email ? "is-invalid" : ""}`}
 					/>
@@ -47,8 +47,7 @@ const Login = () => {
 						required
 						type='password'
 						autoComplete="current-password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						ref={passwordRef}
 						placeholder='Password'
 						className={`form-control ${errors.password ? "is-invalid" : ""}`}
 					/>
