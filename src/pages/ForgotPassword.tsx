@@ -1,51 +1,42 @@
-import React, { useState } from 'react'
-import AlertMessageComponent from '../components/AlertMessage'
-import SuccessMessageComponent from '../components/SuccessMessage'
+import React, { useRef } from 'react'
+import { Alert, Button, Form } from 'react-bootstrap'
 import { useAuthContext } from '../context/AuthContext'
 
 const ForgotPassword = () => {
-	const [ email, setEmail ] = useState<string>('')
+	const emailRef = useRef<HTMLInputElement>(null);
+
 	const { forgotPassword, errors, successMessage } = useAuthContext()
 
-	const handleForgotPassword = async (event: React.SyntheticEvent) => {
+	const handleForgotPassword = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+
+		const email = emailRef.current?.value || '';
 
 		forgotPassword(email)
 	}
 
 	return (
 		<section className="mt-5 form-forgot-password form-guest form-guest w-100 m-auto">
-			<form className="mb-4 needs-validation" onSubmit={handleForgotPassword} noValidate>
-				<h1 className="h3 mb-3 fw-normal text-center">Forgot your password?</h1>
-				<AlertMessageComponent alertMessage={errors?.alert} />
 
+			<h1 className="h3 mb-3 fw-normal text-center">Forgot your password?</h1>
+			{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
+
+			<Form className="mb-4 needs-validation" onSubmit={handleForgotPassword} noValidate>
 				{successMessage ? (
-					<SuccessMessageComponent successMessage={successMessage} />
+					<Alert variant="success">{successMessage}</Alert>
 				) : (<>
 					<p>Let us know your email address and we will email you a password reset link.</p>
 
-					<div className="form-floating has-validation mb-2">
-						<input
-							required
-							type='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							placeholder='Email'
-							className={`form-control ${errors?.email ? "is-invalid" : ""}`}
-						/>
-						{errors?.email && (
-							<div className="invalid-feedback mb-3">
-								{errors?.email[0]}
-							</div>
-						)}
-						<label>Email</label>
-					</div>
+					<Form.Group className="form-floating has-validation mb-2">
+						<Form.Control type="email" placeholder="Email" autoComplete="email" ref={emailRef} isInvalid={!!errors?.email} />
+						<Form.Label>Email</Form.Label>
+						<Form.Control.Feedback type="invalid">{errors?.email && errors.email[0]}</Form.Control.Feedback>
+					</Form.Group>
 
-					<button className="w-100 btn btn-lg btn-primary" type="submit">Reset Password</button>
-
+					<Button variant="primary" className="w-100 btn-lg" type="submit">Reset Password</Button>
 				</>)}
 
-			</form>
+			</Form>
 		</section>
 	)
 }
