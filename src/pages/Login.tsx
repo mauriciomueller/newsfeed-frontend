@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
+import { Alert, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AlertMessageComponent from '../components/AlertMessage'
 import { useAuthContext } from '../context/AuthContext'
@@ -15,53 +16,34 @@ const Login = () => {
 		const email = emailRef.current?.value;
 		const password = passwordRef.current?.value;
 
+		console.log({email, password})
+
 		login({ email, password })
 	}
 
 	return (
 		<section className="mt-5 form-signin form-guest w-100 m-auto">
-			<form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
-				<h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
 
-				<AlertMessageComponent alertMessage={errors?.alert} />
+			<h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
+			{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
 
-				<div className="form-floating has-validation mb-2">
-					<input
-						required
-						type='email'
-						autoComplete="email"
-						ref={emailRef}
-						placeholder='Email'
-						className={`form-control ${errors?.email ? "is-invalid" : ""}`}
-					/>
-					{errors?.email && (
-						<div className="invalid-feedback mb-3">
-							{errors?.email[0]}
-						</div>
-					)}
-					<label>Email</label>
-				</div>
+			<Form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
 
-				<div className="form-floating mb-2">
-					<input
-						required
-						type='password'
-						autoComplete="current-password"
-						ref={passwordRef}
-						placeholder='Password'
-						className={`form-control ${errors.password ? "is-invalid" : ""}`}
-					/>
-					{errors.password && (
-						<div className="invalid-feedback mb-3">
-							{errors.password[0]}
-						</div>
-					)}
-					<label>Password</label>
-				</div>
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control type="email" autoComplete="email" ref={emailRef} isInvalid={!!errors?.email} />
+					<Form.Label>Email</Form.Label>
+					<Form.Control.Feedback type="invalid">{errors?.email && errors.email[0]}</Form.Control.Feedback>
+				</Form.Group>
 
-				<button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control type="password" autoComplete="current-password" ref={passwordRef} isInvalid={!!errors?.password} />
+					<Form.Label>Password</Form.Label>
+					<Form.Control.Feedback type="invalid">{errors?.password && errors.password[0]}</Form.Control.Feedback>
+				</Form.Group>
 
-			</form>
+				<Button variant="primary" className="w-100 btn-lg" type="submit">Sign in</Button>
+			</Form>
+
 			<div className="text-center">
 				<p>
 					<Link
