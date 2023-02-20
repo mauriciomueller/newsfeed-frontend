@@ -19,7 +19,7 @@ main .settings .container .close svg {
 }
 
 main .settings h2 svg {
-    color: #0d6efd;
+    color: rgb(var(--color-primary));
 }
 
 main .settings .checkbox {
@@ -33,17 +33,17 @@ main .settings .checkbox.unchecked {
 }
 
 main .settings .checkbox.unchecked:hover {
-    border: 1px solid  #0d6efd;
-    color: #0d6efd;
+    border: 1px solid rgb(var(--color-primary));
+    color: rgb(var(--color-primary));
 }
 
 main .settings .checkbox.unchecked:hover input {
-    border: 1px solid  #0d6efd;
+    border: 1px solid rgb(var(--color-primary));
 }
 
 main .settings .checkbox.checked {
-    background-color: #c5dcff;
-    border: 1px solid #0d6efd;
+    background-color: rgb(var(--color-primary) / 0.10);
+    border: 1px solid rgb(var(--color-primary) / 0.75);
     color: #002280;
 }
 
@@ -61,5 +61,5 @@ main .settings .checkbox input {
 
 
 main .settings .checkbox.checked input {
-    background-color: #0d6efd;
+    background-color: rgb(var(--color-primary));
 }

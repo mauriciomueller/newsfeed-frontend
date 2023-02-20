@@ -1,0 +1,12 @@
+body {
+    --color-primary: 64 123 255;
+    --color-secondary: 3 65 207;
+    --space: 10px;
+    --form-border-color: #ced4da;
+}
+
+@media(min-width: 768px) {
+    body {
+        --spacing: 20px;
+    }
+}

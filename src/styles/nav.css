@@ -53,11 +53,11 @@ header .search .filters {
     margin-top: 5px;
     width: 100%;
     background-color: #fff;
-    border: 1px solid #e4e4e4;
+    border: 1px solid var(--form-border-color);
 }
 
 header .search .filters .extra-filter {
-    border: 1px solid #e4e4e4;
+    border: 1px solid var(--form-border-color);
     padding: 15px
 }
 

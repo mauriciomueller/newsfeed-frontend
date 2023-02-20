@@ -10,6 +10,7 @@ import { QueryClientProvider } from 'react-query'
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min"
+import "./styles/vars.css"
 import { SettingsProvider } from './context/SettingsContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
