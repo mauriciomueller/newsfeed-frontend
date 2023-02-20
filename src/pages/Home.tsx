@@ -51,7 +51,7 @@ const Home = () => {
 							</defs>
 							<rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
 						</svg>
-						<Image className="position-relative illustration" src="/assets/images/home/hero.svg"></Image>
+						<Image className="position-relative illustration" src="/assets/images/hero.svg"></Image>
 					</Col>
 				</Row>
 
