@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import AlertMessageComponent from '../components/AlertMessage'
 import { useAuthContext } from '../context/AuthContext'
 
 import '../styles/form.css'
@@ -13,10 +12,8 @@ const Login = () => {
 
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		const email = emailRef.current?.value;
-		const password = passwordRef.current?.value;
-
-		console.log({email, password})
+		const email = emailRef.current?.value || '';
+		const password = passwordRef.current?.value || '';
 
 		login({ email, password })
 	}
@@ -30,13 +27,13 @@ const Login = () => {
 			<Form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
 
 				<Form.Group className="form-floating has-validation mb-2">
-					<Form.Control type="email" autoComplete="email" ref={emailRef} isInvalid={!!errors?.email} />
+					<Form.Control type="email" placeholder="Email" autoComplete="email" ref={emailRef} isInvalid={!!errors?.email} />
 					<Form.Label>Email</Form.Label>
 					<Form.Control.Feedback type="invalid">{errors?.email && errors.email[0]}</Form.Control.Feedback>
 				</Form.Group>
 
 				<Form.Group className="form-floating has-validation mb-2">
-					<Form.Control type="password" autoComplete="current-password" ref={passwordRef} isInvalid={!!errors?.password} />
+					<Form.Control type="password" placeholder="password" autoComplete="current-password" ref={passwordRef} isInvalid={!!errors?.password} />
 					<Form.Label>Password</Form.Label>
 					<Form.Control.Feedback type="invalid">{errors?.password && errors.password[0]}</Form.Control.Feedback>
 				</Form.Group>

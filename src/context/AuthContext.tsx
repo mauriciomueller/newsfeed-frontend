@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		}
 	}
 
-	const forgotPassword = async (email: string) => {
+	const forgotPassword = async (email: string | undefined) => {
 		clearStatus()
 
 		try {
