@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { Alert, Button, Form } from 'react-bootstrap';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
 
 const ResetPassword = () => {
-	const [ password, setPassword ] = useState<string>('')
-	const [ password_confirmation, setPasswordConfirmation ] = useState<string>('')
-	const { token, email } = useParams()
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+	const [searchParams] = useSearchParams();
+
+	const { token } = useParams<{ token: string }>();
 
 	const { resetPassword, errors, successMessage } = useAuthContext()
 
 	const handleResetPassword = async (event: React.SyntheticEvent) => {
 		event.preventDefault()
 
+		const email = searchParams.get('email') || '';
+		const password = passwordRef.current?.value || '';
+		const password_confirmation = passwordConfirmationRef.current?.value || '';
+
+		console.log({email})
 		resetPassword({
 			email,
 			token,
@@ -22,8 +30,11 @@ const ResetPassword = () => {
 
 	return (
 		<section className="mt-5 form-forgot-password form-guest form-guest w-100 m-auto">
-			<form className="mb-4 needs-validation" onSubmit={handleResetPassword} noValidate>
+
 				<h1 className="h3 mb-3 fw-normal text-center">Change your password</h1>
+
+				{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
+
 				{successMessage ? (
 					<div className="alert alert-success" role="alert">
 						<h4 className="alert-heading">Well done!</h4>
@@ -31,50 +42,41 @@ const ResetPassword = () => {
 						<hr />
 						<p className="mb-0">
 							Go to{' '}
-							<Link
-								className=""
-								to='/login'
-							>
-								Login
-							</Link> page
+							<Link to='/login'>Login</Link> page
 						</p>
 					</div>
-				) : (<>
-					<div className="form-floating has-validation mb-2">
-						<input
-							required
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							placeholder="New password"
-							className={`form-control ${errors?.password ? "is-invalid" : ""}`}
-						/>
-						{errors?.password && (
-							<div className="invalid-feedback mb-3">
-								{errors?.password[0]}
-							</div>
-						)}
-						<label>New password</label>
-					</div>
+				) : (
+					<Form className="mb-4 needs-validation" onSubmit={handleResetPassword} noValidate>
+						<Form.Group className="form-floating has-validation mb-2">
+							<Form.Control
+								type="password"
+								placeholder="New password"
+								ref={passwordRef}
+								isInvalid={!!errors?.password}
+							/>
+							<Form.Label>New password</Form.Label>
+							<Form.Control.Feedback type="invalid">
+								{errors?.password && errors.password[0]}
+							</Form.Control.Feedback>
+						</Form.Group>
 
-					<div className="form-floating has-validation mb-2">
-						<input
-							required
-							type="password"
-							value={password_confirmation}
-							onChange={(e) => setPasswordConfirmation(e.target.value)}
-							placeholder="Confirm your new password"
-							className="form-control"
-						/>
 
-						<label>Confirm your new password</label>
-					</div>
+						<Form.Group className="form-floating has-validation mb-2">
+							<Form.Control
+								type="password"
+								placeholder="New password"
+								ref={passwordConfirmationRef}
+								isInvalid={!!errors?.password}
+							/>
+							<Form.Label>Confirm your new password</Form.Label>
+							<Form.Control.Feedback type="invalid">
+								{errors?.password && errors.password[0]}
+							</Form.Control.Feedback>
+						</Form.Group>
 
-					<button className="w-100 btn btn-lg btn-primary" type="submit">Save password</button>
-
-				</>)}
-
-			</form>
+						<Button variant="primary" className="w-100 btn-lg" type="submit">Save password</Button>
+				</Form>
+			)}
 		</section>
 	)
 }
