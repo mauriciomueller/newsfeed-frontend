@@ -9,7 +9,7 @@ import { processImageUrl } from '../utils/utils'
 
 const Search = () => {
 
-	const location = useLocation();
+	const location = useLocation()
 	const [ params, setParams ] = useState('')
 
 	useEffect(() => {

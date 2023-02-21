@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col, Button, Image } from 'react-bootstrap'
 import '../styles/home.css'
 
 const Home = () => {
@@ -105,7 +105,7 @@ const Home = () => {
 				</Container>
 			</Container>
 		</section>
-	);
+	)
 }
 
 export default Home

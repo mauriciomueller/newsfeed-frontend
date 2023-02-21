@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap'
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
 
 const ResetPassword = () => {
-	const passwordRef = useRef<HTMLInputElement>(null);
-	const passwordConfirmationRef = useRef<HTMLInputElement>(null);
-	const [searchParams] = useSearchParams();
+	const passwordRef = useRef<HTMLInputElement>(null)
+	const passwordConfirmationRef = useRef<HTMLInputElement>(null)
+	const [searchParams] = useSearchParams()
 
-	const { token } = useParams<{ token: string }>();
+	const { token } = useParams<{ token: string }>()
 
 	const { resetPassword, errors, successMessage } = useAuthContext()
 
 	const handleResetPassword = async (event: React.SyntheticEvent) => {
 		event.preventDefault()
 
-		const email = searchParams.get('email') || '';
-		const password = passwordRef.current?.value || '';
-		const password_confirmation = passwordConfirmationRef.current?.value || '';
+		const email = searchParams.get('email') || ''
+		const password = passwordRef.current?.value || ''
+		const password_confirmation = passwordConfirmationRef.current?.value || ''
 
 		console.log({email})
 		resetPassword({

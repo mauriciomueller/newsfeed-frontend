@@ -6,14 +6,14 @@ import { useAuthContext } from '../context/AuthContext'
 import '../styles/form.css'
 
 const Login = () => {
-	const emailRef = useRef<HTMLInputElement>(null);
-	const passwordRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null)
+	const passwordRef = useRef<HTMLInputElement>(null)
 	const { login, errors } = useAuthContext()
 
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		const email = emailRef.current?.value || '';
-		const password = passwordRef.current?.value || '';
+		const email = emailRef.current?.value || ''
+		const password = passwordRef.current?.value || ''
 
 		login({ email, password })
 	}
@@ -27,15 +27,33 @@ const Login = () => {
 			<Form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
 
 				<Form.Group className="form-floating has-validation mb-2">
-					<Form.Control type="email" placeholder="Email" autoComplete="email" ref={emailRef} isInvalid={!!errors?.email} />
+					<Form.Control
+						required
+						type="email"
+						placeholder="Email"
+						autoComplete="email"
+						ref={emailRef}
+						isInvalid={!!errors?.email}
+					/>
 					<Form.Label>Email</Form.Label>
-					<Form.Control.Feedback type="invalid">{errors?.email && errors.email[0]}</Form.Control.Feedback>
+					<Form.Control.Feedback type="invalid">
+						{errors?.email && errors.email[0]}
+					</Form.Control.Feedback>
 				</Form.Group>
 
 				<Form.Group className="form-floating has-validation mb-2">
-					<Form.Control type="password" placeholder="password" autoComplete="current-password" ref={passwordRef} isInvalid={!!errors?.password} />
+					<Form.Control
+						required
+						type="password"
+						placeholder="password"
+						autoComplete="password"
+						ref={passwordRef}
+						isInvalid={!!errors?.password}
+					/>
 					<Form.Label>Password</Form.Label>
-					<Form.Control.Feedback type="invalid">{errors?.password && errors.password[0]}</Form.Control.Feedback>
+					<Form.Control.Feedback type="invalid">
+						{errors?.password && errors.password[0]}
+					</Form.Control.Feedback>
 				</Form.Group>
 
 				<Button variant="primary" className="w-100 btn-lg" type="submit">Sign in</Button>
