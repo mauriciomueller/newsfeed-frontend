@@ -3,14 +3,14 @@ import { Alert, Button, Form } from 'react-bootstrap'
 import { useAuthContext } from '../context/AuthContext'
 
 const ForgotPassword = () => {
-	const emailRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null)
 
 	const { forgotPassword, errors, successMessage } = useAuthContext()
 
 	const handleForgotPassword = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
-		const email = emailRef.current?.value || '';
+		const email = emailRef.current?.value || ''
 
 		forgotPassword(email)
 	}

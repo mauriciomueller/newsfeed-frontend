@@ -115,6 +115,7 @@ export type ErrorsType = {
 	old_password?: string | null
 	new_password?: string | null
 	new_password_confirmation?: string | null
+	password_confirmation?: string | null
 	first_name?: string | null
 	last_name?: string | null
 	alert?: string | null

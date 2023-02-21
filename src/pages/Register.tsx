@@ -1,114 +1,110 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
+import { Alert, Button, Form } from "react-bootstrap"
 import AlertMessageComponent from "../components/AlertMessage"
 import { useAuthContext } from "../context/AuthContext"
 
 const Register = () => {
-	const [first_name, setFirstName] = useState<string>("")
-	const [last_name, setLastName] = useState<string>("")
-	const [email, setEmail] = useState<string>("")
-	const [password, setPassword] = useState<string>("")
-	const [password_confirmation, setPasswordConfirmation] = useState<string>("")
+	const firstNameRef = useRef<HTMLInputElement>(null)
+	const lastNameRef = useRef<HTMLInputElement>(null)
+	const emailRef = useRef<HTMLInputElement>(null)
+	const passwordRef = useRef<HTMLInputElement>(null)
+	const passwordConfirmationRef = useRef<HTMLInputElement>(null)
 
 	const { register, errors } = useAuthContext()
 
 	const handleRegister = async (event: React.SyntheticEvent) => {
 		event.preventDefault()
 
+		const first_name = firstNameRef.current?.value || ''
+		const last_name = lastNameRef.current?.value || ''
+		const email = emailRef.current?.value || ''
+		const password = passwordRef.current?.value || ''
+		const password_confirmation = passwordConfirmationRef.current?.value || ''
+
 		register({ first_name, last_name, email, password, password_confirmation })
 	}
 
 	return (
 		<section className="mt-5 form-register form-guest w-100 m-auto">
-			<form className="mb-4 needs-validation" onSubmit={handleRegister} noValidate>
-				<h1 className="h3 mb-3 fw-normal text-center">Register</h1>
 
-				<AlertMessageComponent alertMessage={errors?.alert} />
+			<h1 className="h3 mb-3 fw-normal text-center">Register</h1>
 
-				<div className="form-floating has-validation mb-2">
-					<input
+			{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
+
+			<Form className="mb-4 needs-validation" onSubmit={handleRegister} noValidate>
+
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control
 						required
 						type="text"
-						value={first_name}
-						onChange={(e) => setFirstName(e.target.value)}
 						placeholder="First name"
-						className={`form-control ${errors.first_name ? "is-invalid" : ""}`}
+						ref={firstNameRef}
+						isInvalid={!!errors?.first_name}
 					/>
-					{errors.first_name && (
-						<div className="invalid-feedback mb-3">
-							{errors.first_name[0]}
-						</div>
-					)}
-					<label>First name</label>
-				</div>
+					<Form.Label>First name</Form.Label>
+					<Form.Control.Feedback type="invalid">
+						{errors?.first_name && errors.first_name[0]}
+					</Form.Control.Feedback>
+				</Form.Group>
 
-
-				<div className="form-floating has-validation mb-2">
-					<input
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control
 						required
 						type="text"
-						value={last_name}
-						onChange={(e) => setLastName(e.target.value)}
 						placeholder="Last name"
-						className={`form-control ${errors.last_name ? "is-invalid" : ""}`}
+						ref={lastNameRef}
+						isInvalid={!!errors?.last_name}
 					/>
-					{errors.last_name && (
-						<div className="invalid-feedback mb-3">
-							{errors.last_name[0]}
-						</div>
-					)}
-					<label>Last name</label>
-				</div>
+					<Form.Label>Last name</Form.Label>
+					<Form.Control.Feedback type="invalid">
+						{errors?.last_name && errors.last_name[0]}
+					</Form.Control.Feedback>
+				</Form.Group>
 
-				<div className="form-floating has-validation mb-2">
-					<input
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control
 						required
 						type="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
 						placeholder="Email"
-						className={`form-control ${errors.email ? "is-invalid" : ""}`}
+						ref={emailRef}
+						isInvalid={!!errors?.email}
 					/>
-					{errors.email && (
-						<div className="invalid-feedback mb-3">
-							{errors.email[0]}
-						</div>
-					)}
-					<label>Email</label>
-				</div>
+					<Form.Label>Email</Form.Label>
+					<Form.Control.Feedback type="invalid">
+						{errors?.email && errors.email[0]}
+					</Form.Control.Feedback>
+				</Form.Group>
 
-				<div className="form-floating mb-2">
-					<input
+				<Form.Group className="form-floating has-validation mb-2">
+					<Form.Control
 						required
 						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Password"
-						className={`form-control ${errors.password ? "is-invalid" : ""}`}
+						ref={passwordRef}
+						isInvalid={!!errors?.password}
 					/>
-					{errors.password && (
-						<div className="invalid-feedback mb-3">
-							{errors.password[0]}
-						</div>
-					)}
-					<label>Password</label>
-				</div>
+					<Form.Label>Password</Form.Label>
+					<Form.Control.Feedback type="invalid">
+						{errors?.password && errors.password[0]}
+					</Form.Control.Feedback>
+				</Form.Group>
 
-				<div className="form-floating mb-2">
-					<input
+				<Form.Group className="form-floating has-validation mb-3">
+					<Form.Control
 						required
 						type="password"
-						value={password_confirmation}
-						onChange={(e) => setPasswordConfirmation(e.target.value)}
 						placeholder="Password confirmation"
-						className="form-control"
+						ref={passwordConfirmationRef}
+						isInvalid={!!errors?.password_confirmation}
 					/>
+					<Form.Label>Password confirmation</Form.Label>
+					<Form.Control.Feedback type="invalid">
+						{errors?.password_confirmation && errors.password_confirmation[0]}
+					</Form.Control.Feedback>
+				</Form.Group>
 
-					<label>Password confirmation</label>
-				</div>
-
-				<button className="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-
-			</form>
+				<Button variant="primary" className="w-100 btn-lg" type="submit">Register</Button>
+			</Form>
 		</section>
 	)
 }
