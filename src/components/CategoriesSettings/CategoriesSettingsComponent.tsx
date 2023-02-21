@@ -2,10 +2,8 @@ import { BsStars } from "react-icons/bs"
 import { FaWindowClose } from "react-icons/fa"
 import { useSettingsContext } from "../../context/SettingsContext"
 import { UserSettingsCategoryType } from '../../types/types'
-import AlertMessageComponent from "../AlertMessage"
-import SuccessMessageComponent from "../SuccessMessage"
-
 import '../../styles/settings.css'
+import { Alert, Button, Form, Spinner } from "react-bootstrap"
 
 
 export const CategoriesSettingsComponent = () => {
@@ -57,13 +55,17 @@ export const CategoriesSettingsComponent = () => {
 
 					<p>Pick the Topics you find interesting and we'll use these topics to find you more stories.</p>
 
-                    <SuccessMessageComponent successMessage={successMessage} />
-                    <AlertMessageComponent alertMessage={errors?.alert} />
+                    {errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
+                    {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-                    <form onSubmit={onSaveSettings}>
+                    <Form onSubmit={onSaveSettings}>
                         <div className="categories d-flex gap-3 flex-wrap">
-                            {(isCategoriesFetching || categoriesIsLoading) && <div className="my-4 spinner-border text-primary" role="status"></div>}
-                            {!isCategoriesFetching && !categories && <p className="alert alert-danger" role="alert">Sorry, the categories couldn't be loaded.</p>}
+                            {(isCategoriesFetching || categoriesIsLoading) &&
+                                <Spinner className="my-4" animation="border" variant="primary" />
+                            }
+                            {!isCategoriesFetching && !categories &&
+                                <Alert variant="danger">Sorry, the categories couldn't be loaded.</Alert>
+                            }
                             {categories
                                 && !isCategoriesFetching
                                 && categories.length > 0
@@ -91,10 +93,10 @@ export const CategoriesSettingsComponent = () => {
                         <hr />
 
                         <div className="d-flex justify-content-end">
-                            <a className="btn" onClick={closeSettings} href="#">Cancel</a>
-                            <button className={`btn btn-primary ${(isCategoriesFetching || !categories) && "disabled" }`}>Save settings</button>
+                            <Button variant="link" onClick={closeSettings}>Cancel</Button>
+                            <Button variant="primary" type="submit" disabled={(isCategoriesFetching || !categories) ? true : false}>Save settings</Button>
                         </div>
-                    </form>
+                    </Form>
 				</div>
 			</section>
 		}
