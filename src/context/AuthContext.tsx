@@ -64,7 +64,8 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		try {
 			await backendApi.post('/users', data)
 			await getUser()
-			navigate('/')
+			console.log(successMessage)
+			navigate('/login')
 		} catch (error: any) {
 			setErrorsByReponse(error)
 		}
@@ -74,8 +75,8 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			await backendApi.post('/users/', { ...data, email: user?.email, _method: 'PUT' })
-			setSuccessMessage("Your profile was updated successfully.")
+			const response = await backendApi.post('/users/', { ...data, email: user?.email, _method: 'PUT' })
+			setSuccessMessage(response.data.message)
 		} catch (error: any) {
 			setErrorsByReponse(error)
 		}
@@ -85,8 +86,8 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	clearStatus()
 
 		try {
-			await backendApi.post(`/users/change-password`, { ...data, _method: 'PUT' })
-			setSuccessMessage("Your password was updated successfully.")
+			const response = await backendApi.post(`/users/change-password`, { ...data, _method: 'PUT' })
+			setSuccessMessage(response.data.message)
 		} catch (error: any) {
 			setErrorsByReponse(error)
 		}

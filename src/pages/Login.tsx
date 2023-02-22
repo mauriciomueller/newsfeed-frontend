@@ -9,7 +9,6 @@ const Login = () => {
 	const emailRef = useRef<HTMLInputElement>(null)
 	const passwordRef = useRef<HTMLInputElement>(null)
 	const { login, errors } = useAuthContext()
-
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		const email = emailRef.current?.value || ''
@@ -22,6 +21,7 @@ const Login = () => {
 		<section className="mt-5 form-signin form-guest w-100 m-auto">
 
 			<h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
+
 			{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
 
 			<Form className="mb-4 needs-validation" onSubmit={handleLogin} noValidate>
