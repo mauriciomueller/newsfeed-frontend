@@ -48,11 +48,13 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			await backendApi.post('/login', data)
+			const response = await backendApi.post('/login', data)
+			localStorage.setItem('token', response.data.result.access_token)
+
 			await getUser()
 			navigate('/user-news')
 		} catch (error: any) {
-			setErrorsByReponse(error)
+			setErrors(error.response.data.errors)
 		}
 	}
 
@@ -115,6 +117,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	const logout = () => {
 		backendApi.post('/logout').then(() => {
 			setUser(null)
+			localStorage.removeItem('token');
 			navigate('/login')
 		})
 	}
