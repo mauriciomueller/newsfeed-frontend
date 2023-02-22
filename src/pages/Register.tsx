@@ -1,6 +1,5 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { Alert, Button, Form } from "react-bootstrap"
-import AlertMessageComponent from "../components/AlertMessage"
 import { useAuthContext } from "../context/AuthContext"
 
 const Register = () => {
