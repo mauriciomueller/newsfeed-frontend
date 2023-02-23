@@ -34,6 +34,7 @@ const ResetPassword = () => {
 				<h1 className="h3 mb-3 fw-normal text-center">Change your password</h1>
 
 				{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
+				{errors?.email && <Alert variant="danger">{errors?.email[0]}</Alert>}
 
 				{successMessage ? (
 					<div className="alert alert-success" role="alert">

@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { Button, Form } from "react-bootstrap"
-import AlertMessageComponent from "../components/AlertMessage"
-import SuccessMessageComponent from "../components/SuccessMessage"
+import { useEffect, useRef } from "react"
+import { Alert, Button, Form } from "react-bootstrap"
 import { useAuthContext } from "../context/AuthContext"
 
 const ChangePassword = () => {
@@ -10,14 +8,6 @@ const ChangePassword = () => {
 	const newPasswordConfirmationdRef = useRef<HTMLInputElement | null>(null)
 
 	const { updatePassword, errors, successMessage } = useAuthContext()
-
-	useEffect(() => {
-		if(successMessage !== '') {
-			oldPasswordRef.current = null
-			newPasswordRef.current = null
-			newPasswordConfirmationdRef.current = null
-		}
-	},[successMessage])
 
 	const handleUpdatePassword = async (event: React.SyntheticEvent) => {
 		event.preventDefault()
@@ -34,8 +24,8 @@ const ChangePassword = () => {
 
 <h1 className="h3 mb-3 fw-normal text-center">Change your Password</h1>
 
-			<SuccessMessageComponent successMessage={successMessage} />
-			<AlertMessageComponent alertMessage={errors?.alert} />
+			{successMessage && <Alert variant="success">{successMessage}</Alert>}
+			{errors?.alert && <Alert variant="danger">{errors.alert}</Alert>}
 
 			<Form className="mb-4 needs-validation" onSubmit={handleUpdatePassword} noValidate>
 
@@ -44,7 +34,6 @@ const ChangePassword = () => {
 						required
 						type="password"
 						placeholder="Old password"
-						autoComplete="password"
 						ref={oldPasswordRef}
 						isInvalid={!!errors?.old_password}
 					/>
