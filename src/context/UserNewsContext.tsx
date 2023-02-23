@@ -23,8 +23,8 @@ export const UserNewsProvider = ({ children }: ChildrenContextType) => {
         queryFn: async () => {
             const response = await backendApi.get(`/users/news`)
 
-            setYourNews(response.data.yourNews)
-			setNewsByCategory(response.data.byCategories)
+            setYourNews(response.data.result.yourNews)
+			setNewsByCategory(response.data.result.byCategories)
             return response.data
         },
         refetchOnWindowFocus: false,

@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		setIsUserLoading(true)
 		try {
 			const { data } = await backendApi.get('/user')
-			if(data && data.user) {
-				setUser(data.user)
+			if(data && data.result.user) {
+				setUser(data.result.user)
 				setIsLogged(true)
 			}
 		} catch (error: any) {
