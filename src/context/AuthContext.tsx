@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			const response = await backendApi.post('/login', data)
+			const response = await backendApi.post('/users/login', data)
 			localStorage.setItem('token', response.data.result.access_token)
 
 			await getUser()
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			const response = await backendApi.post('/users/', { ...data, email: user?.email, _method: 'PUT' })
+			const response = await backendApi.post('/users', { ...data, email: user?.email, _method: 'PUT' })
 			setSuccessMessage(response.data.message)
 		} catch (error: any) {
 			setErrorsByReponse(error)
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			const response = await backendApi.post('/forgot-password', { email })
+			const response = await backendApi.post('/users/forgot-password', { email })
 			setSuccessMessage(response.data.status)
 		} catch (error: any) {
 			setErrorsByReponse(error)
@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 		clearStatus()
 
 		try {
-			const response = await backendApi.post('/reset-password', { ...data })
+			const response = await backendApi.post('/users/reset-password', { ...data })
 			setSuccessMessage(response.data.status)
 		} catch (error: any) {
 			setErrorsByReponse(error)
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	}
 
 	const logout = () => {
-		backendApi.post('/logout').then(() => {
+		backendApi.post('/users/logout').then(() => {
 			setUser(null)
 			localStorage.removeItem('token');
 			navigate('/login')
