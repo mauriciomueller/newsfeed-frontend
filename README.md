@@ -3,6 +3,9 @@
 
 ## How to start the project:
 
+### Get the backend project here:
+https://github.com/mauriciomueller/newsfeed-backend
+
 ### Start containers:
 ```
 $ docker-compose up -d
