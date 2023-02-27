@@ -51,13 +51,13 @@ const Home = () => {
 							</defs>
 							<rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
 						</svg>
-						<Image className="position-relative illustration" src="/assets/images/hero.svg"></Image>
+						<Image className="position-relative illustration w-100" src="/assets/images/hero.svg"></Image>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col xs={12} md={6} className="d-flex flex-column justify-content-center">
-						<Image src="https://stories.freepiklabs.com/storage/1534/49-News_Artboard-1.svg" alt="NewsFeed"></Image>
+						<Image src="/assets/images/custom-feed.svg" alt="NewsFeed" className="w-100"></Image>
 					</Col>
 
 					<Col xs={12} md={6} className="d-flex flex-column justify-content-center">
@@ -73,7 +73,7 @@ const Home = () => {
 					</Col>
 
 					<Col xs={12} md={6}>
-						<Image src="https://stories.freepiklabs.com/storage/864/Search-01.svg"></Image>
+						<Image src="/assets/images/search-news.svg" className="w-100"></Image>
 					</Col>
 				</Row>
 			</Container>
