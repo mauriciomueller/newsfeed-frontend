@@ -37,8 +37,8 @@ export const SettingsProvider = ({ children }: ChildrenContextType) => {
 
 		const response = await backendApi.get(`/users/categories/`)
 
-		setCategories(response.data)
-		setCategoriesInitialData(response.data)
+		setCategories(response.data.result)
+		setCategoriesInitialData(response.data.result)
 		return response.data
     },{
         initialData: categories,

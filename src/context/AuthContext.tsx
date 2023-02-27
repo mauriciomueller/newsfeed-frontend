@@ -21,21 +21,19 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	}
 
 	const setErrorsByReponse = (error: any) => {
-		if (error.response && error.response.status === 422) {
-			setErrors(error.response.data.errors)
-		}
-
 		if (error.response.status === 404 || error.response.status === 500) {
 			setErrors({alert: "Error! Please try again later."})
 		}
+
+		setErrors(error.response.data.errors)
 	}
 
 	const getUser = async () => {
 		setIsUserLoading(true)
 		try {
 			const { data } = await backendApi.get('/user')
-			if(data && data.user) {
-				setUser(data.user)
+			if(data && data.result.user) {
+				setUser(data.result.user)
 				setIsLogged(true)
 			}
 		} catch (error: any) {
@@ -54,7 +52,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 			await getUser()
 			navigate('/user-news')
 		} catch (error: any) {
-			setErrors(error.response.data.errors)
+			setErrorsByReponse(error)
 		}
 	}
 
