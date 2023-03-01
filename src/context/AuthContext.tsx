@@ -21,8 +21,9 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	}
 
 	const setErrorsByReponse = (error: any) => {
-		if (error.response.status === 404 || error.response.status === 500) {
+		if (error.response?.status === 404 || error.response?.status === 500) {
 			setErrors({alert: "Error! Please try again later."})
+			return
 		}
 
 		setErrors(error.response.data.errors)
@@ -81,7 +82,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 	}
 
 	const updatePassword = async ({ ...data }) => {
-	clearStatus()
+		clearStatus()
 
 		try {
 			const response = await backendApi.post(`/users/change-password`, { ...data, _method: 'PUT' })
@@ -96,7 +97,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 
 		try {
 			const response = await backendApi.post('/users/forgot-password', { email })
-			setSuccessMessage(response.data.status)
+			setSuccessMessage(response.data.message)
 		} catch (error: any) {
 			setErrorsByReponse(error)
 		}
@@ -107,7 +108,7 @@ export const AuthProvider = ({ children }: ChildrenContextType) => {
 
 		try {
 			const response = await backendApi.post('/users/reset-password', { ...data })
-			setSuccessMessage(response.data.status)
+			setSuccessMessage(response.data.message)
 		} catch (error: any) {
 			setErrorsByReponse(error)
 		}
