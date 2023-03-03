@@ -2,9 +2,8 @@ import { BsStars } from "react-icons/bs"
 import { FaWindowClose } from "react-icons/fa"
 import { useSettingsContext } from "../../context/SettingsContext"
 import { UserSettingsCategoryType } from '../../types/types'
-import '../../styles/settings.css'
 import { Alert, Button, Form, Spinner } from "react-bootstrap"
-
+import '../../styles/settings.css'
 
 export const CategoriesSettingsComponent = () => {
 
