@@ -20,7 +20,7 @@ export const YourNewsComponent = () => {
 	}
 
     return (
-        <section className="news row">
+        <section className="news">
 
             <h2 className="mb-2 text-primary">Your News</h2>
 

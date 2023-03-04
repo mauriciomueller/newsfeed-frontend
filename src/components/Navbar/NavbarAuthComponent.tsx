@@ -1,31 +1,24 @@
-import { MdOutlineLogout, MdAccountCircle } from "react-icons/md"
-import { Link } from 'react-router-dom'
-import { useAuthContext } from '../../context/AuthContext'
+import { Col } from "react-bootstrap"
+import { useNavbarContext } from "../../context/NavbarContext"
+import LogoComponent from "../Logo"
 import SearchComponent from "../Search"
+import UserNavMenuComponent from "../UserNavMenu"
 
 export const NavbarAuthComponent = () => {
 
-	const { logout } = useAuthContext()
+	const { isSearchOnFocus } = useNavbarContext()
 
     return (
 		<>
-			<SearchComponent />
-
-			<div className="d-flex justify-content-end">
-				<nav className="flex-shrink-0 dropdown">
-					<a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="assets/images/profile.png" alt="mdo" width="32" height="32" className="rounded-circle" />
-					</a>
-
-					<ul className="dropdown-menu text-small shadow">
-						<li><Link className="dropdown-item" to="/profile"><MdAccountCircle /> Profile</Link></li>
-
-						<li><hr className="dropdown-divider" /></li>
-
-						<li><a href="#" className="dropdown-item" onClick={logout}><MdOutlineLogout /> Sign out</a></li>
-					</ul>
-				</nav>
-			</div>
+			<Col md={3} xs={5} className={isSearchOnFocus && 'd-none d-md-flex'}>
+				<LogoComponent />
+			</Col>
+			<Col md={8} xs={isSearchOnFocus ? 12 : 5}>
+				<SearchComponent />
+			</Col>
+			<Col md={1} xs={2} className={isSearchOnFocus && 'd-none d-md-flex'}>
+				<UserNavMenuComponent />
+			</Col>
 		</>
     )
 }
