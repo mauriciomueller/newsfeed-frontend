@@ -20,7 +20,7 @@ const Search = () => {
 	const { data: news, isFetching, refetch: refecthSearch } = useQuery({
         queryKey: ['search', params],
         queryFn: async (queryKey) => {
-			const response = await backendApi.get(`/search${queryKey.queryKey[1]}`)
+			const response = await backendApi.get(`/news/search${queryKey.queryKey[1]}`)
 
 			return response.data
 		},
@@ -29,11 +29,12 @@ const Search = () => {
         retryDelay: 3000,
         keepPreviousData: false,
         cacheTime: 0,
+		enabled: params ? true : false,
     })
 
 	return (
 		<section className="container mt-5">
-			<section className="news">
+			<section className="news row">
 				<h2 className="mb-2 text-primary">Search News Results</h2>
 
 				<hr className="mb-4" />
@@ -45,7 +46,9 @@ const Search = () => {
 
 				) : (<>
 					{(!news || news.length === 0) &&
-						<div className="alert alert-danger" role="alert">We couldn't find any news! Try again later or change your search criteria.</div>
+						<Col>
+							<div className="alert alert-danger" role="alert">We couldn't find any news! Try again later or change your search criteria.</div>
+						</Col>
 					}
 
 					{(news && news.length > 0) && news.map((article: NewsArticleType, index: number) => (
