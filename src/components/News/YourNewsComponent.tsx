@@ -1,5 +1,5 @@
 import { processImageUrl } from '../../utils/utils'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { MdSettings } from 'react-icons/md'
 import { useSettingsContext } from '../../context/SettingsContext'
 import moment from 'moment'
@@ -20,7 +20,7 @@ export const YourNewsComponent = () => {
 	}
 
     return (
-        <section className="news">
+        <Row className="news">
 
             <h2 className="mb-2 text-primary">Your News</h2>
 
@@ -82,6 +82,6 @@ export const YourNewsComponent = () => {
                 ))}
 
             </>)}
-        </section>
+        </Row>
     )
 }

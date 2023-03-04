@@ -1,5 +1,5 @@
 import { processImageUrl } from '../../utils/utils'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import moment from 'moment'
 import { useUserNewsContext } from '../../context/UserNewsContext'
 
@@ -24,7 +24,7 @@ export const NewsByCategoryComponent = () => {
                 }
 
                 {(newsByCategory && Object.keys(newsByCategory).length > 0) && Object.keys(newsByCategory).map((news: string) => (
-                    <section className={`news row ${news}`} key={news}>
+                    <Row className={`news ${news}`} key={news}>
 
                         <div className="d-flex justify-content-between gap-3 mb-4">
                             <h2 className="m-0">{newsByCategory[news]['categoryTitle']}</h2>
@@ -66,7 +66,7 @@ export const NewsByCategoryComponent = () => {
                             </Col>
                         ))}
 
-                    </section>
+                    </Row>
                 ))}
 
             </>)}
