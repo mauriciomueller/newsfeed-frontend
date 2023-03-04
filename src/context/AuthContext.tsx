@@ -1,7 +1,85 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { backendApi } from '../services/backendApi'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { AuthContextType, UserType, ErrorsType, ChildrenContextType } from '../types/types'
+
+type AuthContextType = {
+	user: UserType | null
+	getUser: () => void,
+	isLogged: boolean,
+	isUserLoading: boolean,
+	login: (data: any) => void
+	register: (data: any) => void
+	logout: () => void
+	updateProfile: (data: UpdateProfileParams) => void
+	updatePassword: (data: UpdatePasswordParams) => void
+	forgotPassword: (data: string) => void
+	resetPassword: (data: ResetPasswordParams) => void
+	errors: ErrorsType
+	successMessage: string
+}
+
+type UpdateProfileParams = {
+	first_name: string
+	last_name: string
+}
+
+type UpdatePasswordParams = {
+	old_password: string
+	new_password: string
+	new_password_confirmation: string
+}
+
+type ResetPasswordParams = {
+	email: string|undefined
+	token: string|undefined
+	password: string
+	password_confirmation: string
+}
+
+type SettingsCategoryType = {
+	id: number
+	code: string
+	name: string
+}
+
+type SettingsSourceType = {
+	id: number
+	country: string
+	language: string
+	code: string
+	name: string
+}
+
+type SettingsType = {
+	categories: Array<SettingsCategoryType>
+	sources: Array<SettingsSourceType>
+}
+
+type UserType = {
+	id: number,
+	first_name: string
+	last_name: string
+	email: string
+	password?: string
+	confirm_password?: string
+	settings: SettingsType
+}
+
+type ErrorsType = {
+	email?: string | null
+	password?: string | null
+	old_password?: string | null
+	new_password?: string | null
+	new_password_confirmation?: string | null
+	password_confirmation?: string | null
+	first_name?: string | null
+	last_name?: string | null
+	alert?: string | null
+}
+
+type ChildrenContextType = {
+	children: React.ReactNode
+}
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 

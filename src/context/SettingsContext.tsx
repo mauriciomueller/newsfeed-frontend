@@ -1,9 +1,36 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { UseMutateFunction, useMutation, useQuery, useQueryClient } from 'react-query'
 import { backendApi } from '../services/backendApi'
 import { useAuthContext } from './AuthContext'
-import { SettingsContextType, ChildrenContextType, UserSettingsCategoryType, ErrorsType } from '../types/types'
 
+type ErrorsType = {
+	alert?: string | null
+}
+
+type SettingsContextType = {
+	isSettingsOpen: boolean
+	setIsSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>
+	categories: UserSettingsCategoryType[] | null
+	setCategories: React.Dispatch<React.SetStateAction<UserSettingsCategoryType[] | null>>
+	categoriesInitialData:UserSettingsCategoryType[] | null
+	setCategoriesInitialData: React.Dispatch<React.SetStateAction<UserSettingsCategoryType[] | null>>
+	isCategoriesFetching: boolean,
+	mutateCategories: UseMutateFunction<any, any, UserSettingsCategoryType[], unknown>
+	successMessage: string
+	errors: ErrorsType,
+	categoriesIsLoading: boolean,
+	categoriesUpdatedCounter: number,
+}
+
+export type UserSettingsCategoryType = {
+    name: string
+    value: string
+    isSettingEnabled: boolean
+}
+
+type ChildrenContextType = {
+	children: React.ReactNode
+}
 
 const SettingsContext = createContext<SettingsContextType>({} as SettingsContextType)
 

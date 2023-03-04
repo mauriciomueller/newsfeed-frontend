@@ -1,8 +1,45 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { backendApi } from '../services/backendApi'
-import { UserNewsContextType, ChildrenContextType, YourNewsType, NewsByCategoryType } from '../types/types'
 import { useSettingsContext } from './SettingsContext'
+
+type NewsArticleSourceType = {
+	id: string
+	name: string
+}
+
+type NewsArticleType = {
+	title: string
+	url: string
+	author: string
+	content: string
+	description?: string | undefined
+	publishedAt: string
+	urlToImage?: string | undefined
+	source: NewsArticleSourceType
+    category: Array<string>
+}
+
+export type YourNewsType = NewsArticleType
+
+type NewsCategoryType = {
+	articles: NewsArticleType[]
+    categoryTitle: string
+}
+
+type NewsByCategoryType = {
+    [key: string]: NewsCategoryType
+}
+
+type UserNewsContextType = {
+	yourNews: YourNewsType[] | null
+	newsByCategory?: NewsByCategoryType | null
+	isFetching?: boolean
+}
+
+export type ChildrenContextType = {
+	children: React.ReactNode
+}
 
 const UserNewsContext = createContext<UserNewsContextType>({} as UserNewsContextType)
 
