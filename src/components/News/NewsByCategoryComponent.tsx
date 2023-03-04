@@ -3,9 +3,24 @@ import { Col, Row } from 'react-bootstrap'
 import moment from 'moment'
 import { useUserNewsContext } from '../../context/UserNewsContext'
 
-
-import { NewsArticleType } from '../../types/types'
 import "../../styles/news.css"
+
+type NewsArticleSourceType = {
+	id: string
+	name: string
+}
+
+type NewsArticleType = {
+	title: string
+	url: string
+	author: string
+	content: string
+	description?: string | undefined
+	publishedAt: string
+	urlToImage?: string | undefined
+	source: NewsArticleSourceType
+    category: Array<string>
+}
 
 export const NewsByCategoryComponent = () => {
 

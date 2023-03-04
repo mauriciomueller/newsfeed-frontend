@@ -5,8 +5,26 @@ import { useSettingsContext } from '../../context/SettingsContext'
 import moment from 'moment'
 import "../../styles/news.css"
 import { useUserNewsContext } from '../../context/UserNewsContext'
-import { YourNewsType } from '../../types/types'
 
+
+export type YourNewsType = NewsArticleType
+
+type NewsArticleType = {
+	title: string
+	url: string
+	author: string
+	content: string
+	description?: string | undefined
+	publishedAt: string
+	urlToImage?: string | undefined
+	source: NewsArticleSourceType
+    category: Array<string>
+}
+
+type NewsArticleSourceType = {
+	id: string
+	name: string
+}
 
 export const YourNewsComponent = () => {
 

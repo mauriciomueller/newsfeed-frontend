@@ -1,11 +1,14 @@
 import { createContext, useContext, useState } from 'react'
-import { ChildrenContextType } from '../types/types'
 
 type NavbarContextType = {
 	handleSearchOnFocus: () => void,
 	handleSearchOnBlur: () => void,
 	setIsSearchOnFocus: React.Dispatch<React.SetStateAction<Boolean>>,
 	isSearchOnFocus: Boolean,
+}
+
+type ChildrenContextType = {
+	children: React.ReactNode
 }
 
 const NavbarContext = createContext<NavbarContextType>({} as NavbarContextType)

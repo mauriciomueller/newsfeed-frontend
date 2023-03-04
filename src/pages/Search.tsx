@@ -4,8 +4,29 @@ import { Col } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { useLocation } from 'react-router-dom'
 import { backendApi } from '../services/backendApi'
-import { NewsArticleType } from '../types/types'
 import { processImageUrl } from '../utils/utils'
+
+type NewsArticleSourceType = {
+	id: string
+	name: string
+}
+
+type NewsArticleType = {
+	title: string
+	url: string
+	author: string
+	content: string
+	description?: string | undefined
+	publishedAt: string
+	urlToImage?: string | undefined
+	source: NewsArticleSourceType
+    category: Array<string>
+}
+
+type NewsCategoryType = {
+	articles: NewsArticleType[]
+    categoryTitle: string
+}
 
 const Search = () => {
 
