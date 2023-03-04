@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { NavbarProvider } from './context/NavbarContext'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -15,10 +16,13 @@ import ChangePassword from './pages/ChangePassword'
 import UserNews from './pages/UserNews'
 import Search from './pages/Search'
 
+
 function App() {
 	return (
 		<>
-			<NavbarComponent />
+			<NavbarProvider>
+				<NavbarComponent />
+			</NavbarProvider>
 
 			<main>
 				<Routes>

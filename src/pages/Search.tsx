@@ -33,8 +33,7 @@ const Search = () => {
 
 	return (
 		<section className="container mt-5">
-			<section className="news row">
-
+			<section className="news">
 				<h2 className="mb-2 text-primary">Search News Results</h2>
 
 				<hr className="mb-4" />
@@ -85,7 +84,7 @@ const Search = () => {
 					))}
 
 				</>)}
-				</section>
+			</section>
 		</section>
 	)
 }
